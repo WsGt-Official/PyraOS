@@ -3,8 +3,14 @@ name = "PyraOS"
 version = "0.1.0"
 entry = "src/main.pyra"
 target = "asm"
+title = "PyraOS"
+source_type = "github"
+repository = "https://github.com/WsGt-Official/PyraOS.git"
+branch = "main"
+description = "The Example OS for Pyra"
 
 [packages]
+PyraOS = { source = "wsgt", version = "*" }
 
 [scripts]
 build = "{pyra} \"{entry}\" --target asm"
