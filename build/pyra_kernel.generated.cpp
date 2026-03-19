@@ -103,47 +103,43 @@ static void panic(uint32_t color) {
     halt();
 }
 
+static int __pyra_kernel_main() {
+    clear(rgb(43.0, 87.0, 154.0));
+    auto width = screen_width();
+    auto height = screen_height();
+    auto taskbar_height = 56.0;
+    fill_rect(0.0, (height - taskbar_height), width, taskbar_height, rgb(22.0, 50.0, 92.0));
+    fill_rect(0.0, ((height - taskbar_height) - 2.0), width, 2.0, rgb(111.0, 168.0, 220.0));
+    auto pane_w = 90.0;
+    auto pane_h = 90.0;
+    auto gap = 18.0;
+    auto logo_x = (((width / 2.0) - pane_w) - (gap / 2.0));
+    auto logo_y = (((height / 2.0) - pane_h) - 50.0);
+    fill_rect(logo_x, logo_y, pane_w, pane_h, rgb(127.0, 219.0, 255.0));
+    fill_rect(((logo_x + pane_w) + gap), logo_y, pane_w, pane_h, rgb(58.0, 150.0, 221.0));
+    fill_rect(logo_x, ((logo_y + pane_h) + gap), pane_w, pane_h, rgb(87.0, 199.0, 255.0));
+    fill_rect(((logo_x + pane_w) + gap), ((logo_y + pane_h) + gap), pane_w, pane_h, rgb(30.0, 111.0, 184.0));
+    auto card_width = 520.0;
+    auto card_height = 140.0;
+    auto card_x = ((width - card_width) / 2.0);
+    auto card_y = (((logo_y + (pane_h * 2.0)) + gap) + 48.0);
+    fill_rect(card_x, card_y, card_width, card_height, rgb(234.0, 243.0, 255.0));
+    fill_rect(card_x, card_y, card_width, 8.0, rgb(169.0, 208.0, 245.0));
+    fill_rect((card_x + 16.0), (card_y + 24.0), (card_width - 32.0), 18.0, rgb(187.0, 215.0, 242.0));
+    fill_rect((card_x + 16.0), (card_y + 56.0), (card_width - 120.0), 14.0, rgb(201.0, 221.0, 243.0));
+    fill_rect((card_x + 16.0), (card_y + 82.0), (card_width - 180.0), 14.0, rgb(201.0, 221.0, 243.0));
+    fill_rect((card_x + 16.0), (card_y + 108.0), 160.0, 12.0, rgb(159.0, 191.0, 226.0));
+    fill_rect(32.0, (height - 44.0), 32.0, 32.0, rgb(100.0, 181.0, 246.0));
+    fill_rect(80.0, (height - 40.0), 140.0, 24.0, rgb(44.0, 79.0, 125.0));
+    fill_rect((width - 140.0), (height - 38.0), 108.0, 18.0, rgb(39.0, 71.0, 111.0));
+    halt();
+    return 0;
+}
 
 extern "C" int pyra_kernel_entry(uint32_t multiboot_magic, uint32_t multiboot_info_addr) {
     if (!freestanding_init(multiboot_magic, multiboot_info_addr)) {
         panic(rgb(0, 0, 170));
+        return 1;
     }
-
-    clear(rgb(43, 87, 154));
-
-    uint32_t width = screen_width();
-    uint32_t height = screen_height();
-
-    uint32_t taskbar_height = 56;
-    fill_rect(0, height - taskbar_height, width, taskbar_height, rgb(22, 50, 92));
-    fill_rect(0, height - taskbar_height - 2, width, 2, rgb(111, 168, 220));
-
-    uint32_t pane_w = 90;
-    uint32_t pane_h = 90;
-    uint32_t gap = 18;
-    uint32_t logo_x = (width / 2) - pane_w - (gap / 2);
-    uint32_t logo_y = (height / 2) - pane_h - 50;
-
-    fill_rect(logo_x, logo_y, pane_w, pane_h, rgb(127, 219, 255));
-    fill_rect(logo_x + pane_w + gap, logo_y, pane_w, pane_h, rgb(58, 150, 221));
-    fill_rect(logo_x, logo_y + pane_h + gap, pane_w, pane_h, rgb(87, 199, 255));
-    fill_rect(logo_x + pane_w + gap, logo_y + pane_h + gap, pane_w, pane_h, rgb(30, 111, 184));
-
-    uint32_t card_width = 520;
-    uint32_t card_height = 140;
-    uint32_t card_x = (width - card_width) / 2;
-    uint32_t card_y = logo_y + (pane_h * 2) + gap + 48;
-    fill_rect(card_x, card_y, card_width, card_height, rgb(234, 243, 255));
-    fill_rect(card_x, card_y, card_width, 8, rgb(169, 208, 245));
-    fill_rect(card_x + 16, card_y + 24, card_width - 32, 18, rgb(187, 215, 242));
-    fill_rect(card_x + 16, card_y + 56, card_width - 120, 14, rgb(201, 221, 243));
-    fill_rect(card_x + 16, card_y + 82, card_width - 180, 14, rgb(201, 221, 243));
-    fill_rect(card_x + 16, card_y + 108, 160, 12, rgb(159, 191, 226));
-
-    fill_rect(32, height - 44, 32, 32, rgb(100, 181, 246));
-    fill_rect(80, height - 40, 140, 24, rgb(44, 79, 125));
-    fill_rect(width - 140, height - 38, 108, 18, rgb(39, 71, 111));
-
-    halt();
-    return 0;
+    return __pyra_kernel_main();
 }
