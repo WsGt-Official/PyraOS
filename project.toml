@@ -9,9 +9,6 @@ repository = "https://github.com/WsGt-Official/PyraOS.git"
 branch = "main"
 description = "The Example OS for Pyra"
 
-[packages]
-PyraOS = { source = "wsgt", version = "*" }
-
 [scripts]
 build = "{pyra} \"{entry}\" --target asm"
 run = "{pyra} \"{entry}\" --target asm"
