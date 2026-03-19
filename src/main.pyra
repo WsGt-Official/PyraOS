@@ -1,0 +1,40 @@
+use pyra "freestanding"
+
+fn main() {
+    freestanding.clear(freestanding.rgb(43, 87, 154))
+
+    width = freestanding.screen_width()
+    height = freestanding.screen_height()
+
+    taskbar_height = 56
+    freestanding.fill_rect(0, height - taskbar_height, width, taskbar_height, freestanding.rgb(22, 50, 92))
+    freestanding.fill_rect(0, height - taskbar_height - 2, width, 2, freestanding.rgb(111, 168, 220))
+
+    pane_w = 90
+    pane_h = 90
+    gap = 18
+    logo_x = (width / 2) - pane_w - (gap / 2)
+    logo_y = (height / 2) - pane_h - 50
+
+    freestanding.fill_rect(logo_x, logo_y, pane_w, pane_h, freestanding.rgb(127, 219, 255))
+    freestanding.fill_rect(logo_x + pane_w + gap, logo_y, pane_w, pane_h, freestanding.rgb(58, 150, 221))
+    freestanding.fill_rect(logo_x, logo_y + pane_h + gap, pane_w, pane_h, freestanding.rgb(87, 199, 255))
+    freestanding.fill_rect(logo_x + pane_w + gap, logo_y + pane_h + gap, pane_w, pane_h, freestanding.rgb(30, 111, 184))
+
+    card_width = 520
+    card_height = 140
+    card_x = (width - card_width) / 2
+    card_y = logo_y + (pane_h * 2) + gap + 48
+    freestanding.fill_rect(card_x, card_y, card_width, card_height, freestanding.rgb(234, 243, 255))
+    freestanding.fill_rect(card_x, card_y, card_width, 8, freestanding.rgb(169, 208, 245))
+    freestanding.fill_rect(card_x + 16, card_y + 24, card_width - 32, 18, freestanding.rgb(187, 215, 242))
+    freestanding.fill_rect(card_x + 16, card_y + 56, card_width - 120, 14, freestanding.rgb(201, 221, 243))
+    freestanding.fill_rect(card_x + 16, card_y + 82, card_width - 180, 14, freestanding.rgb(201, 221, 243))
+    freestanding.fill_rect(card_x + 16, card_y + 108, 160, 12, freestanding.rgb(159, 191, 226))
+
+    freestanding.fill_rect(32, height - 44, 32, 32, freestanding.rgb(100, 181, 246))
+    freestanding.fill_rect(80, height - 40, 140, 24, freestanding.rgb(44, 79, 125))
+    freestanding.fill_rect(width - 140, height - 38, 108, 18, freestanding.rgb(39, 71, 111))
+
+    freestanding.halt()
+}

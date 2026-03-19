@@ -1,0 +1,10 @@
+export PREFIX="$HOME/opt/cross"
+export PATH="$PREFIX/bin:$PATH"
+cd /mnt/c/Users/bashy/Documents/GitHub/PyraOS
+python3 /mnt/c/Users/bashy/Documents/GitHub/WsGt/Pyra/__main__.py src/main.pyra --target cpp --bare --freestanding --entrypoint pyra_kernel_entry -o build/pyra_kernel.generated.cpp
+nasm -f elf32 os/boot.asm -o build/boot.o
+i686-elf-g++ -ffreestanding -m32 -fno-exceptions -fno-rtti -c build/pyra_kernel.generated.cpp -o build/pyra_kernel.o
+i686-elf-ld -T os/linker.ld -o build/pyraos.bin build/boot.o build/pyra_kernel.o
+cp build/pyraos.bin iso/boot/pyraos.bin
+grub-mkrescue -o build/pyraos.iso iso
+qemu-system-i386 -cdrom build/pyraos.iso

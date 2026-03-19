@@ -1,0 +1,13 @@
+[project]
+name = "PyraOS"
+version = "0.1.0"
+entry = "src/main.pyra"
+target = "asm"
+
+[packages]
+
+[scripts]
+build = "{pyra} \"{entry}\" --target asm"
+run = "{pyra} \"{entry}\" --target asm"
+emit-cpp = "{pyra} \"{entry}\" --target cpp"
+emit-python = "{pyra} \"{entry}\" --target python"
